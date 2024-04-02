@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useColorScheme, StyleSheet, Text, View, Button, TextInput, Pressable } from 'react-native';
+import { useColorScheme, StyleSheet, Text, View, Button, TextInput, Pressable, ScrollView } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 export default function App() {
@@ -16,6 +16,12 @@ export default function App() {
     text: {
       color: theme === 'light' ? '#313131': '#D2D2D2',
       fontWeight: '800',
+      paddingLeft: 20,
+    },
+
+    textdate: {
+      fontWeight: '800',
+      fontSize: 24,
     },
 
     textInput :{
@@ -28,6 +34,18 @@ export default function App() {
       fontSize:16,
       borderRadius: 50,
       elevation: 5
+    },
+
+    textContent: {
+      justifyContent: 'center',
+      alignContent: 'center',
+    },
+
+    scrollview : {
+      
+      borderWidth: 1,
+      borderRadius: 20,
+      margin: 10,
     },
 
     button: {
@@ -56,11 +74,16 @@ export default function App() {
 
   });
 
+  const textStyle = StyleSheet.compose(styles.text, {fontSize:24})
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Good Morning!</Text>
         <StatusBar style="auto" />
-      <Text style={styles.text}>2, April 2024</Text>
+      <Text style={textStyle}>2, April 2024</Text>
+      <ScrollView style={styles.scrollview}>
+        <Text style={styles.textContent}>You have no tracked tasks yet</Text>
+      </ScrollView>
       <TextInput 
         style={styles.textInput}
         autoCapitalize='none'
@@ -72,7 +95,7 @@ export default function App() {
           <Text style={styles.subtitle}>Time Started</Text>
           <Text style={styles.timerFont}>00:00:00</Text>
         </View>
-        
+
         <Pressable style={styles.button} onPress={() => {console.log("hellow world")}}>
           <AntDesign name="caretright" size={40} color="black" />
         </Pressable> 
