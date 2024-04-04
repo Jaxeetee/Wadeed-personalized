@@ -1,19 +1,34 @@
-import React from 'react'
-import { AntDesign } from '@expo/vector-icons';
+import { React, useState} from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 import { getCurrentTime } from '../helpers/date-and-time';
+import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const PlayButton = (props) => {
+    const[isPlaying, setIsPlaying] = useState(false);
 
     function onButtonClicked()
     {
-        console.log("Played");
-        props.setTimestamp(getCurrentTime());
+        
+        if (!isPlaying)
+        {
+            props.setTimestamp(getCurrentTime());
+            setIsPlaying(!isPlaying);
+        }
+        else 
+        {
+            props.setTimestamp('00:00 am');
+            setIsPlaying(!isPlaying);
+        }
     }
 
   return (
     <Pressable style={buttonStyle.play} onPress={onButtonClicked}>
-        <AntDesign name="caretright" size={40} color="black" />
+        {
+            isPlaying ? 
+                <FontAwesome5 name="stop" size={24.5} color="#DA0000" />:
+                <AntDesign name="caretright" size={24} color="black" />
+        }
     </Pressable> 
   )
 }

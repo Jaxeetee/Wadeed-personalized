@@ -1,11 +1,12 @@
 import { React, useState, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
+
 import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { getDateToday, getGreeting } from '../helpers/date-and-time';
 import PlayButton from '../components/PlayButton';
 
 const HomeScreen = () => {
-  const [timestampText, setTimestampText] = useState('00:00');
+  const [timestampText, setTimestampText] = useState('00:00 am');
+  const [startFunc, setStartFunc] = useState(null);
 
   const updateTimestamp = (newTimestamp) => {
     setTimestampText(newTimestamp);
@@ -13,8 +14,8 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Good {getGreeting()}!</Text>
-        <StatusBar style="auto" />
+      
+      <Text style={styles.text}>Good {getGreeting()}!</Text>    
       <Text style={{fontSize:24}}>{getDateToday()}</Text>
       <ScrollView style={styles.scrollview}>
         <Text style={styles.textContent}>You have no tracked tasks yet</Text>
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     padding:20,
+    marginTop: 50,
     backgroundColor: '#F4F4F4',
     justifyContent: 'center',
   },
