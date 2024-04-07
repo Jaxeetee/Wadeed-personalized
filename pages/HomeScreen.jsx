@@ -3,6 +3,7 @@ import { React, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { getDateToday, getGreeting } from '../helpers/date-and-time';
 import PlayButton from '../components/PlayButton';
+import Stopwatch from '../components/Stopwatch';
 import TimestampStart from '../components/TimestampStart';
 
 const HomeScreen = () => {
@@ -32,12 +33,10 @@ const HomeScreen = () => {
         />
         <PlayButton 
           setButtonActive = {updateStartTask}
-          setTimestamp = {updateTimestamp}
         />
-        <View>
-          <Text style={styles.subtitle}>Timer</Text>
-          <Text style={styles.timerFont}>00:00:00</Text>
-        </View>
+        <Stopwatch 
+          isPlayButtonActive = {isPlayButtonActive}
+        />
       </View>
     </View>
   )
