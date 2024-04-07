@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import { getCurrentTime } from '../helpers/date-and-time'
 
 const TimestampStart = (props) => {
     const [timestampText, setTimestampText] = useState('00:00 am');
 
-    const updateTimestamp = (newTimestamp) => {
-        setTimestampText(newTimestamp);
-      
-    }
+    useEffect(() => {
+
+        if (props.isPlayButtonActive)
+            setTimestampText(getCurrentTime());
+        else 
+            setTimestampText('00:00 am');
+
+    }, [props.isPlayButtonActive])
     return (
     <View>
         <Text style={styles.subtitle}>Time Started</Text>
-        <Text style={styles.timerFont}>{timestampText}</Text>
+        <Text style={styles.timer}>{timestampText}</Text>
     </View>
   )
 }

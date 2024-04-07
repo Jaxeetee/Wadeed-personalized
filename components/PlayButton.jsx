@@ -12,12 +12,14 @@ const PlayButton = (props) => {
         
         if (!isPlaying)
         {
-            props.setTimestamp(getCurrentTime());
+            //Start the task
+            // TODO: make it so that it will only start when there is a string in the input.
+            props.setButtonActive(true);
             setIsPlaying(!isPlaying);
         }
         else 
         {
-            props.setTimestamp('00:00 am');
+            props.setButtonActive(false);
             setIsPlaying(!isPlaying);
         }
     }

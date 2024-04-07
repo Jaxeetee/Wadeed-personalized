@@ -1,20 +1,21 @@
-import React, { useState } from 'react'
-import { StyleSheet } from 'react-native';
+import React, { useState, useRef } from 'react'
+import { StyleSheet, View, Text } from 'react-native';
 
 const Stopwatch = (props) => {
   const [timer, setTimer] = useState(0);
 
-  const startTimer = () => {
+  const start = () => {
 
   }
 
-  const stopTimer = () => {
+  const stop = () => {
 
   }
+
   return (
     <View>
       <Text style={styles.subtitle}>Timer</Text>
-      <Text style={styles.timerFont}>00:00:00</Text>
+      <Text style={styles.timer}>00:00:00</Text>
     </View>
   )
 }
