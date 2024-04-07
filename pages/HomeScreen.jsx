@@ -19,7 +19,9 @@ const HomeScreen = () => {
       <Text style={styles.text}>Good {getGreeting()}!</Text>    
       <Text style={{fontSize:24}}>{getDateToday()}</Text>
       <ScrollView style={styles.scrollview}>
-        <Text style={styles.textContent}>You have no tracked tasks yet</Text>
+        <View style={styles.taskView}>
+          <Text style={styles.textContent}>You have no tracked tasks yet</Text>
+        </View>
       </ScrollView>
       <TextInput 
         style={styles.textInput}
@@ -98,12 +100,10 @@ const styles = StyleSheet.create({
     padding: 20
   },
 
-  subtitle: {
-    fontWeight: '800'
-  },
-
-  timerFont: {
-    fontSize: 24,
+  taskView: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height:500,
   }
 
 });
