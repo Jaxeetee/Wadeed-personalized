@@ -14,11 +14,17 @@ const PlayButton = (props) => {
 		{
 			//Start the task
 			// TODO: make it so that it will only start when there is a string in the input.
-			props.setButtonActive(true);
-			setIsPlaying(!isPlaying);
+			if (props.userInput != null || props.userInput != '')
+			{
+				props.setButtonActive(true);
+				setIsPlaying(!isPlaying);
+			}
+			
 		}
 		else 
 		{
+			//make it submit to the list
+			props.updateUserInput(null);
 			props.setButtonActive(false);
 			setIsPlaying(!isPlaying);
 		}

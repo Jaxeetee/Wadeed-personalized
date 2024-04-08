@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 
 import { StyleSheet, Text, View, TextInput, ScrollView } from 'react-native';
 import { getDateToday, getGreeting } from '../helpers/date-and-time';
@@ -8,6 +8,11 @@ import TimestampStart from '../components/TimestampStart';
 
 const HomeScreen = () => {
   const [isPlayButtonActive, setIsPlayButtonActive] = useState(false);
+  const [userInput, setUserInput] = useState(null);
+
+  const updateUserInput = (newInput) => {
+    setUserInput(newInput);
+  }
 
   const updateStartTask = (setStartTaskState) => {
     setIsPlayButtonActive(setStartTaskState);
@@ -19,7 +24,7 @@ const HomeScreen = () => {
       <Text style={styles.text}>Good {getGreeting()}!</Text>    
       <Text style={{fontSize:24}}>{getDateToday()}</Text>
       <ScrollView style={styles.scrollview}>
-        <View style={styles.taskView}>
+        <View style={styles.emptyTaskView}>
           <Text style={styles.textContent}>You have no tracked tasks yet</Text>
         </View>
       </ScrollView>
@@ -27,7 +32,7 @@ const HomeScreen = () => {
         style={styles.textInput}
         autoCapitalize='none'
         placeholder='What are you going to do?'
-        
+        onChangeText={updateUserInput}
       />
       <View style={styles.timerRow}>
         <TimestampStart
@@ -35,6 +40,8 @@ const HomeScreen = () => {
         />
         <PlayButton 
           setButtonActive = {updateStartTask}
+          updateUserInput = {updateUserInput}
+          userInput = {userInput}
         />
         <Stopwatch 
           isPlayButtonActive = {isPlayButtonActive}
@@ -100,7 +107,7 @@ const styles = StyleSheet.create({
     padding: 20
   },
 
-  taskView: {
+  emptyTaskView: {
     alignItems: 'center',
     justifyContent: 'center',
     height:500,
