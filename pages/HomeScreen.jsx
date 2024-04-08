@@ -36,6 +36,7 @@ const HomeScreen = () => {
         autoCapitalize='none'
         placeholder='What are you going to do?'
         onChangeText={updateUserInput}
+        value={userInput}
       />
       <View style={styles.timerRow}>
         <TimestampStart
