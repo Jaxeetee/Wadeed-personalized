@@ -1,5 +1,5 @@
-import { React, useState} from 'react';
-import { StyleSheet, Pressable } from 'react-native';
+import { React, useState } from 'react';
+import { StyleSheet, Pressable, Keyboard } from 'react-native';
 import { getCurrentTime } from '../helpers/date-and-time';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -9,24 +9,18 @@ const PlayButton = (props) => {
 
 	function onButtonClicked()
 	{
-			
-		if (!isPlaying)
+		if (!isPlaying && props.userInput)
 		{
-			//Start the task
-			// TODO: make it so that it will only start when there is a string in the input.
-			if (props.userInput != null || props.userInput != '')
-			{
-				props.setButtonActive(true);
-				setIsPlaying(!isPlaying);
-			}
-			
+			props.setButtonActive(true);
+			Keyboard.dismiss();
+			setIsPlaying(true);
 		}
-		else 
+		else if (isPlaying)
 		{
+			props.setButtonActive(false);
 			//make it submit to the list
 			props.updateUserInput(null);
-			props.setButtonActive(false);
-			setIsPlaying(!isPlaying);
+			setIsPlaying(false);
 		}
 	}
 
