@@ -1,4 +1,4 @@
-import { format, getHours } from 'date-fns';
+import { format, getDate, getHours } from 'date-fns';
 
 export function getDateToday()
 {
@@ -45,4 +45,21 @@ export function formatTime(milliseconds)
 
   let timeString =  `${padStart(hours)}:${padStart(minutes)}:${padStart(seconds)}`;
   return timeString;
+}
+
+const currentDay = '';
+export function isANewDay()
+{
+  if (currentDay === '' || currentDay === getDateToday())
+  {
+    currentDay = getDateToday();
+    return true;
+  }
+
+
+  if (currentDay !== getDateToday())
+  {
+    currentDay = getDateToday;
+    return false;
+  }
 }

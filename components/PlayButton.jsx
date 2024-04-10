@@ -7,8 +7,6 @@ import { FontAwesome5 } from '@expo/vector-icons';
 const PlayButton = (props) => {
 	const[isPlaying, setIsPlaying] = useState(false);
 
-
-
 	function onButtonClicked()
 	{
 		if (!isPlaying && props.userInput)
