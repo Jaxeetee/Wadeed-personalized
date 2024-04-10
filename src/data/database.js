@@ -1,6 +1,15 @@
+import * as FileSystem from 'expo-file-system';
 import * as SQLite from 'expo-sqlite';
+import { Asset } from 'expo-asset';
 
-//it will create a new db names tasks
-const db = SQLite.openDatabase('tasks.db');
-
-export default db;
+async function openDatabase(pathToDatabaseFile){
+  if (!(await FileSystem.getInfoAsync(FileSystem.documentDirectory + 'SQLite')).exists) {
+    await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'SQLite');
+  }
+  const asset = await Asset.fromModule(require(pathToDatabaseFile)).downloadAsync();
+  await FileSystem.copyAsync({
+    from: asset.localUri,
+    to: FileSystem.documentDirectory + 'SQLite/tasks.db',
+  });
+  return SQLite.openDatabase('tasks.db');
+}
