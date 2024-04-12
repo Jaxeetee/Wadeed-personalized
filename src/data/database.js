@@ -23,19 +23,23 @@ async function openDatabase(pathToDatabaseFile)
     from: asset.localUri,
     to: FileSystem.documentDirectory + `SQLite/${DB_NAME}.db`,
   });
-
+  // finally opens/creates SQLite db
   const db = SQLite.openDatabase(`${DB_NAME}.db`);
 
   db.transaction((tx) => {
     tx.executeSql(`
-    CREATE TABLE IF NOT EXISTS Date_tbl(
-      id INTEGER PRIMARY KEY,
-      dateOfTasks DATE,
-      numberOfTasks INTEGER
+    CREATE TABLE IF NOT EXISTS task(
+      id INT PRIMARY KEY AUTOINCREMENT,
+      task_name VARCHAR(255),
+      start_timestamp VARCHAR(255),
+      duration INT,
+      date_of_task DATE,  
+      number_of_task INT
       );
     `);
   });
-  // finally opens/creates SQLite db
+  
+  
   return db;
 }
 
