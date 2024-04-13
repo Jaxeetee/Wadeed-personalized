@@ -27,6 +27,7 @@ const Stopwatch = (props) => {
     } 
     else 
     {
+      props.getDuration(timer);
       stop();
     }
 

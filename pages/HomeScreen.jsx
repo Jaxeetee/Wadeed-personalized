@@ -9,6 +9,8 @@ import TimestampStart from '../components/TimestampStart';
 const HomeScreen = () => {
   const [isPlayButtonActive, setIsPlayButtonActive] = useState(false);
   const [userInput, setUserInput] = useState(null);
+  const [startTimestamp, setStartTimestamp] = useState(null);
+  const [duration, setDuration] = useState(null);
 
   const updateUserInput = (newInput) => {
     setUserInput(newInput);
@@ -16,6 +18,14 @@ const HomeScreen = () => {
 
   const updateStartTask = (setStartTaskState) => {
     setIsPlayButtonActive(setStartTaskState);
+  };
+
+  const updateStartTimestamp = (timestamp) => {
+    setStartTimestamp(timestamp);
+  };
+
+  const updateDuration = (newDuration) => {
+    setDuration(newDuration);
   };
 
   return (
@@ -41,14 +51,18 @@ const HomeScreen = () => {
       <View style={styles.timerRow}>
         <TimestampStart
           isPlayButtonActive = {isPlayButtonActive}
+          getTimeStamp = {updateStartTimestamp}
         />
         <PlayButton 
           setButtonActive = {updateStartTask}
           updateUserInput = {updateUserInput}
           userInput = {userInput}
+          startTimestamp ={startTimestamp}
+          duration = {duration}
         />
         <Stopwatch 
           isPlayButtonActive = {isPlayButtonActive}
+          getDuration = {updateDuration}
         />
       </View>
     </View>
@@ -116,10 +130,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height:500,
   },
-
-  filledTaskView: {
-    
-  }
 
 
 });

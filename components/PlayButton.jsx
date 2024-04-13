@@ -1,8 +1,11 @@
 import { React, useState } from 'react';
 import { StyleSheet, Pressable, Keyboard } from 'react-native';
-import { getCurrentTime } from '../helpers/date-and-time';
+import { getCurrentTime, getDateToday } from '../helpers/date-and-time';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { format } from 'date-fns';
+
+import { addTask } from '../src/data/collections/tasks';
 
 const PlayButton = (props) => {
 	const[isPlaying, setIsPlaying] = useState(false);
@@ -18,7 +21,13 @@ const PlayButton = (props) => {
 		else if (isPlaying)
 		{
 			props.setButtonActive(false);
-			//make it submit to the list
+			//make it submit to the db
+			addTask({
+				task_name: props.userInput,
+				start_timestamp: format(props.startTimestamp, 'HH:mm:ss'),
+				duration: props.duration,
+				date_of_task: format(getDateToday(), 'MM/dd/yyyy')
+			})
 			props.updateUserInput(null);
 			setIsPlaying(false);
 		}

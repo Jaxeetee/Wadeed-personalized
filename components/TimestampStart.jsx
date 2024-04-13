@@ -9,9 +9,14 @@ const TimestampStart = (props) => {
     useEffect(() => {
 
         if (props.isPlayButtonActive)
+        {
             setTimestampText(getCurrentTime());
+        }
         else 
+        {
+            props.getTimestamp(timestampText);
             setTimestampText('00:00 am');
+        }
 
     }, [props.isPlayButtonActive])
     return (
