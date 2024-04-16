@@ -1,7 +1,27 @@
-import { getDateToday } from '../../../helpers/date-and-time';
+import * as FileSystem from 'expo-file-system';
 import * as SQLite from 'expo-sqlite';
+import { Asset } from 'expo-asset';
 
-const DB_NAME = 'task';
+import { getDateToday } from '../../../helpers/date-and-time';
+
+
+export async function loadDatabase()
+{
+  const dbName = 'wadoo.db';
+  const dbAsset = require("./assets/wadoo.db");
+  const dbUri = Asset.fromModule(dbAsset).uri;
+  const dbFilepath = `${FileSystem.documentDirectory}SQLite/${dbName}`;
+
+  const fileInfo = await FileSystem.getInfoAsync(dbFilepath);
+  if (!fileInfo.exists)
+  {
+    await FileSystem.makeDirectoryAsync(
+      `${FileSystem.documentDirectory}SQLite`,
+      { intermediates: true}
+    );
+    await FileSystem.downloadAsync(dbUri, dbFilepath);
+  }
+}
 
 export async function getAllTasksToday()
 {
@@ -13,7 +33,7 @@ export async function getAllTasksToday()
     await db.transaction( async (tx) => {
       const result = await tx.executeSql(`
       SELECT * 
-        FROM task
+        FROM tasks
         WHERE date_of_task = ${getDateToday()}`);
 
       return result;

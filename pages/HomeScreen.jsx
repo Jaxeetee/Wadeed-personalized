@@ -5,6 +5,7 @@ import { getDateToday, getGreeting } from '../helpers/date-and-time';
 import PlayButton from '../components/PlayButton';
 import Stopwatch from '../components/Stopwatch';
 import TimestampStart from '../components/TimestampStart';
+import TaskList from '../components/TaskList';
 
 const HomeScreen = () => {
   const [isPlayButtonActive, setIsPlayButtonActive] = useState(false);
@@ -33,14 +34,7 @@ const HomeScreen = () => {
       
       <Text style={styles.text}>Good {getGreeting()}!</Text>    
       <Text style={{fontSize:24}}>{getDateToday()}</Text>
-      <ScrollView style={styles.scrollview}>
-        {/* <View style={styles.emptyTaskView}>
-          <Text style={styles.textContent}>You have no tracked tasks yet</Text>
-        </View> */}
-        <View style={styles.filledTaskView}>
-
-        </View>
-      </ScrollView>
+      <TaskList />
       <TextInput 
         style={styles.textInput}
         autoCapitalize='none'
@@ -105,10 +99,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
 
-  scrollview : {
-    borderWidth: 1,
-    borderRadius: 20,
-  },
 
   button: {
     backgroundColor: '#F4F4F4',
@@ -124,13 +114,6 @@ const styles = StyleSheet.create({
     gap:30,
     padding: 20
   },
-
-  emptyTaskView: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height:500,
-  },
-
 
 });
 
