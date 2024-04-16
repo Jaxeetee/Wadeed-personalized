@@ -45,7 +45,7 @@ const HomeScreen = () => {
       <View style={styles.timerRow}>
         <TimestampStart
           isPlayButtonActive = {isPlayButtonActive}
-          getTimeStamp = {updateStartTimestamp}
+          getTimestamp = {updateStartTimestamp}
         />
         <PlayButton 
           setButtonActive = {updateStartTask}

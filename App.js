@@ -7,6 +7,7 @@ import { SQLiteProvider } from 'expo-sqlite/next';
 import HomeScreen from './pages/HomeScreen';
 import { loadDatabase } from './sql/query';
 import { ActivityIndicator } from 'react-native';
+import { View } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 

@@ -6,7 +6,7 @@ import { getDateToday } from '../helpers/date-and-time';
 export async function loadDatabase()
 {
   const dbName = 'wadoo.db';
-  const dbAsset = require("./assets/wadoo.db");
+  const dbAsset = require("../assets/wadoo.db");
   const dbUri = Asset.fromModule(dbAsset).uri;
   const dbFilepath = `${FileSystem.documentDirectory}SQLite/${dbName}`;
 
@@ -24,15 +24,18 @@ export async function loadDatabase()
 // submits data to db
 export async function submitData(data)
 {
-  const db = await SQLite.openDatabase('wadoo');
+  const db = await SQLite.openDatabase('wadoo.db');
 
   try {
     await db.transactionAsync(async (tx) => {
-      await tx.executeSqlAsync(
+      const result =  await tx.executeSqlAsync(
         `INSERT INTO tasks (task_name, start_timestamp, duration, date_started)
         VALUES (?, ?, ?, ?)
         `
       ,[data.task_name, data.start_timestamp, data.duration, data.date_started]);
+      
+      console.log(result);
+    
     })
   }
   catch(err)
@@ -44,7 +47,7 @@ export async function submitData(data)
 // gets list of data
 export async function getData()
 {
-  const db = await SQLite.openDatabase('wadoo');
+  const db = await SQLite.openDatabase('wadoo.db');
 
   try {
     await db.transactionAsync(async (tx) => {
@@ -54,6 +57,7 @@ export async function getData()
           start_date <= ?;`
       ,[getDateToday(), getDateToday()]);
       
+      console.log(result);
       return result;
     })
   }

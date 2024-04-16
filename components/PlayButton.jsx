@@ -5,12 +5,12 @@ import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { format } from 'date-fns';
 
-import { addTask } from '../src/data/collections/tasks';
+import { submitData } from '../sql/query';
 
 const PlayButton = (props) => {
 	const[isPlaying, setIsPlaying] = useState(false);
 
-	function onButtonClicked()
+	const onButtonClicked = async () =>
 	{
 		if (!isPlaying && props.userInput)
 		{
@@ -22,6 +22,13 @@ const PlayButton = (props) => {
 		{
 			props.setButtonActive(false);
 			//make it submit to the db
+
+			await submitData({
+				task_name: props.userInput,
+				start_timer: props.startTimestamp,
+				duration: props.duration,
+				date_started: getDateToday()
+			});
 			// addTask({
 			// 	task_name: props.userInput,
 			// 	start_timestamp: format(props.startTimestamp, 'HH:mm:ss'),

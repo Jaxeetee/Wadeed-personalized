@@ -1,8 +1,11 @@
 import React from 'react'
 import { ScrollView, StyleSheet } from 'react-native'
 
-const TaskList = () => {
+import { getData } from '../sql/query'
+
+const TaskList = (props) => {
   
+  const test = getData();
 
   return (
     <ScrollView style={styles.scrollview}> 
