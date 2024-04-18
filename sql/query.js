@@ -24,19 +24,23 @@ export async function loadDatabase()
 // submits data to db
 export async function submitData(data)
 {
+  console.log('submitted data');
   const db = await SQLite.openDatabase('wadoo.db');
 
+  const sql = 
+  `INSERT INTO tasks(task_name, start_timestamp, duration, date_started)
+    VALUES (?, ?, ?, ?);
+  `;
+
   try {
+    console.log('before awaiting');
     await db.transactionAsync(async (tx) => {
-      const result =  await tx.executeSqlAsync(
-        `INSERT INTO tasks (task_name, start_timestamp, duration, date_started)
-        VALUES (?, ?, ?, ?)
-        `
-      ,[data.task_name, data.start_timestamp, data.duration, data.date_started]);
-      
-      console.log(result);
+      console.log("inside transaction");
+       await tx.executeSqlAsync(sql,
+        [data.task_name, data.start_timestamp, data.duration, data.date_started]);
     
-    })
+    });
+    console.log('success!');
   }
   catch(err)
   {
@@ -45,20 +49,23 @@ export async function submitData(data)
 }
 
 // gets list of data
-export async function getData()
+export async function fetchData()
 {
   const db = await SQLite.openDatabase('wadoo.db');
 
+  const sql = 
+    `SELECT * FROM tasks
+    WHERE date_started >= ? AND
+    date_started <= ?;`;
+
   try {
     await db.transactionAsync(async (tx) => {
-      const result = await tx.executeSqlAsync(
-        `SELECT * FROM tasks
-          WHERE start_date >= ? AND
-          start_date <= ?;`
-      ,[getDateToday(), getDateToday()]);
-      
-      console.log(result);
-      return result;
+      const result = await tx.executeSqlAsync(sql,
+        [getDateToday(), getDateToday()]);
+
+      const resultArr = result.rows;
+      console.log(resultArr);
+      return resultArr;
     })
   }
   catch(err)

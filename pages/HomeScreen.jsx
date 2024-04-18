@@ -34,7 +34,9 @@ const HomeScreen = () => {
       
       <Text style={styles.text}>Good {getGreeting()}!</Text>    
       <Text style={{fontSize:24}}>{getDateToday()}</Text>
-      <TaskList />
+      <TaskList 
+        getUpdate={isPlayButtonActive}
+      />
       <TextInput 
         style={styles.textInput}
         autoCapitalize='none'

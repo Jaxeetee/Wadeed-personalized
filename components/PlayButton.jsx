@@ -21,22 +21,16 @@ const PlayButton = (props) => {
 		else if (isPlaying)
 		{
 			props.setButtonActive(false);
-			//make it submit to the db
+			props.updateUserInput(null);
+			setIsPlaying(false);
 
 			await submitData({
 				task_name: props.userInput,
-				start_timer: props.startTimestamp,
+				start_timestamp: props.startTimestamp,
 				duration: props.duration,
 				date_started: getDateToday()
 			});
-			// addTask({
-			// 	task_name: props.userInput,
-			// 	start_timestamp: format(props.startTimestamp, 'HH:mm:ss'),
-			// 	duration: props.duration,
-			// 	date_of_task: format(getDateToday(), 'MM/dd/yyyy')
-			// })
-			props.updateUserInput(null);
-			setIsPlaying(false);
+
 		}
 	}
 
