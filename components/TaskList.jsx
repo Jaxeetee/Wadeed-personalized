@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet } from 'react-native'
 
 import { fetchData } from '../sql/query'
+import { useSQLiteContext } from 'expo-sqlite/next';
 
 const TaskList = (props) => {
 
   const [taskList, setTaskList] = useState([]);
-
-  const result = async() => await fetchData();
   
   useEffect(()=>{
 

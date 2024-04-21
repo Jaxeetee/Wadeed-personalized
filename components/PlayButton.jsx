@@ -1,28 +1,29 @@
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import { React, useState } from 'react';
-import { StyleSheet, Pressable, Keyboard } from 'react-native';
-import { getCurrentTime, getDateToday } from '../helpers/date-and-time';
-import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { format } from 'date-fns';
+import { Keyboard, Pressable, StyleSheet } from 'react-native';
+import { getDateToday } from '../helpers/date-and-time';
 
+
+import { useSQLiteContext } from 'expo-sqlite/next';
 import { submitData } from '../sql/query';
 
 const PlayButton = (props) => {
 	const[isPlaying, setIsPlaying] = useState(false);
 
-	const onButtonClicked = async () =>
+	const onButtonClicked = () =>
 	{
 		if (!isPlaying && props.userInput)
 		{
 			props.setButtonActive(true);
 			Keyboard.dismiss();
 			setIsPlaying(true);
+
 		}
 		else if (isPlaying)
 		{
 			props.setButtonActive(false);
 			
-			await submitData({
+			submitData({
 				task_name: props.userInput,
 				start_timestamp: props.startTimestamp,
 				duration: props.duration,
