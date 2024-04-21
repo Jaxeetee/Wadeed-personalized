@@ -8,6 +8,7 @@ import HomeScreen from './pages/HomeScreen';
 import { loadDatabase } from './sql/query';
 import { ActivityIndicator } from 'react-native';
 import { View } from 'react-native';
+import { Loading } from './components/Loading';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,22 +24,25 @@ export default function App() {
   if (!dbLoaded)
   {
     return (
-      <View style={{flex: 1}}>
-        <ActivityIndicator size={'large'} />
-      </View>
+      <Loading />
     )
   }
   return (
     <NavigationContainer style={{flex:1}}>
-      <Stack.Navigator
-      screenOptions={{
-        headerShown: false
-      }}>
-      <Stack.Screen 
-        name='Home'
-        component={HomeScreen}
-        />
-      </Stack.Navigator>
+      <Suspense 
+        fallback={<Loading />}>
+        <SQLiteProvider databaseName='wadoo.db' useSuspense>
+          <Stack.Navigator
+          screenOptions={{
+            headerShown: false
+          }}>
+          <Stack.Screen 
+            name='Home'
+            component={HomeScreen}
+            />
+          </Stack.Navigator>
+        </SQLiteProvider>
+      </Suspense>
     </NavigationContainer>
   );
 }

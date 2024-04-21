@@ -22,10 +22,9 @@ export async function loadDatabase()
 }
 
 // submits data to db
-export async function submitData(data)
+export async function submitData(db, data)
 {
-  console.log('submitted data');
-  const db = await SQLite.openDatabase('wadoo.db');
+  // const db = await SQLite.openDatabase('wadoo.db');
 
   const sql = 
   `INSERT INTO tasks(task_name, start_timestamp, duration, date_started)
@@ -34,13 +33,12 @@ export async function submitData(data)
 
   try {
     console.log('before awaiting');
-    await db.transactionAsync(async (tx) => {
+    const result = await db.transactionAsync(async (tx) => {
       console.log("inside transaction");
        await tx.executeSqlAsync(sql,
         [data.task_name, data.start_timestamp, data.duration, data.date_started]);
-    
     });
-    console.log('success!');
+    console.log('after awaitng transaction', result);
   }
   catch(err)
   {
@@ -49,22 +47,22 @@ export async function submitData(data)
 }
 
 // gets list of data
-export async function fetchData()
+export async function fetchData(db)
 {
-  const db = await SQLite.openDatabase('wadoo.db');
+  // const db = await SQLite.openDatabase('wadoo.db');
 
   const sql = 
     `SELECT * FROM tasks
     WHERE date_started >= ? AND
     date_started <= ?;`;
-
+  console.log('fetching');
   try {
     await db.transactionAsync(async (tx) => {
       const result = await tx.executeSqlAsync(sql,
         [getDateToday(), getDateToday()]);
 
       const resultArr = result.rows;
-      console.log(resultArr);
+      console.log(`${resultArr}`);
       return resultArr;
     })
   }

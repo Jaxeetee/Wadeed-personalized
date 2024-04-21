@@ -21,15 +21,16 @@ const PlayButton = (props) => {
 		else if (isPlaying)
 		{
 			props.setButtonActive(false);
-			props.updateUserInput(null);
-			setIsPlaying(false);
-
+			
 			await submitData({
 				task_name: props.userInput,
 				start_timestamp: props.startTimestamp,
 				duration: props.duration,
 				date_started: getDateToday()
 			});
+
+			props.updateUserInput(null);
+			setIsPlaying(false);
 
 		}
 	}
