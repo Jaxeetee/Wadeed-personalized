@@ -6,13 +6,15 @@ import PlayButton from '../components/PlayButton';
 import Stopwatch from '../components/Stopwatch';
 import TimestampStart from '../components/TimestampStart';
 import TaskList from '../components/TaskList';
+import { useSQLiteContext } from 'expo-sqlite/next';
 
 const HomeScreen = () => {
   const [isPlayButtonActive, setIsPlayButtonActive] = useState(false);
   const [userInput, setUserInput] = useState(null);
   const [startTimestamp, setStartTimestamp] = useState(null);
   const [duration, setDuration] = useState(null);
-
+	const db = useSQLiteContext();
+  
   const updateUserInput = (newInput) => {
     setUserInput(newInput);
   }
